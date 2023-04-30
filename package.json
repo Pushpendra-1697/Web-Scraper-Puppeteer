@@ -1,0 +1,23 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pushpendra-1697/Web-Scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pushpendra-1697/Web-Scraper/issues"
+  },
+  "homepage": "https://github.com/Pushpendra-1697/Web-Scraper#readme",
+  "dependencies": {
+    "puppeteer": "^19.11.1"
+  }
+}

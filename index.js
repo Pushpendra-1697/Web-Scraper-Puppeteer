@@ -3,7 +3,14 @@ const puppeteer = require('puppeteer');
 async function scrapeIndeed() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto('https://www.indeed.com/');
+    await page.setDefaultNavigationTimeout(0);
+    let status = await page.goto('https://www.indeed.com');
+    status = status.status();
+    if (status != 404) {
+        console.log(`Probably HTTP response status code 200 OK.`);
+    }else{
+        return;
+    }
 
     // Enter search query
     await page.type('#text-input-what', 'full stack developer');
@@ -13,8 +20,8 @@ async function scrapeIndeed() {
 
     // Click "Find Jobs" button
     await Promise.all([
-        page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-        page.click('#jobsearch button')
+        page.waitForNavigation(),
+        page.click('.yosegi-InlineWhatWhere-primaryButton')
     ]);
 
     let jobCount = 0;
@@ -26,13 +33,15 @@ async function scrapeIndeed() {
 
         // Extract job count on first page
         // if (jobCount === 0) {
-        //     const jobCountText = await page.$eval('#searchCountPages', el => el.textContent);
+        //     const jobCountText = await page.$$eval('#searchCountPages');
+        //     console.log("jobCountText", jobCountText);
         //     jobCount = parseInt(jobCountText.match(/(\d+)/)[0]);
         //     console.log(`Found ${jobCount} jobs:`);
         // }
 
         // Extract job data on current page
         const currentPageJobs = await page.$$eval('#mosaic-provider-jobcards article', jobCards => {
+            console.log(jobCards)
             return jobCards.map(jobCard => {
                 const titleEl = jobCard.querySelector('.jobtitle a');
                 const title = titleEl.textContent.trim();
@@ -48,20 +57,24 @@ async function scrapeIndeed() {
 
         // Click "Next" button to go to next page
         // const nextButton = await page.$('#pagination-buttons-container > div > a:last-child');
-        // console.log(nextButton);
         // const disabled = await nextButton.evaluate(node => node.classList.contains('disabled'));
         // if (disabled) {
         //     break;
         // }
-        // await Promise.all([
-        //     page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-        //     // nextButton.click()
-        // ]);
+        if (currentPageJobs.length >= 20) {
+            break;
+        }
+        await Promise.all([
+            page.waitForNavigation(),
+            // nextButton.click()
+        ]);
+        jobCount++;
+        console.log(jobCount);
+        console.log(currentPageJobs);
     }
 
     console.log(jobs);
 
     await browser.close();
-};
-
+}
 scrapeIndeed();

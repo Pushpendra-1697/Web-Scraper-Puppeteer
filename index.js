@@ -4,7 +4,7 @@ async function scrapeIndeed() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
-    let status = await page.goto('https://www.indeed.com');
+    let status = await page.goto('https://www.indeed.com/');
     status = status.status();
     if (status != 404) {
         console.log(`Probably HTTP response status code 200 OK.`);
@@ -41,7 +41,6 @@ async function scrapeIndeed() {
 
         // Extract job data on current page
         const currentPageJobs = await page.$$eval('#mosaic-provider-jobcards article', jobCards => {
-            console.log(jobCards)
             return jobCards.map(jobCard => {
                 const titleEl = jobCard.querySelector('.jobtitle a');
                 const title = titleEl.textContent.trim();

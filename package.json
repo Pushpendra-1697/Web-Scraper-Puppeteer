@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Pushpendra-1697/Web-Scraper#readme",
   "dependencies": {
-    "puppeteer": "^19.11.1"
+    "puppeteer": "^19.11.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }

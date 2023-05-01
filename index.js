@@ -1,9 +1,14 @@
 const puppeteer = require('puppeteer-extra');
+// add stealth plugin and use defaults (all evasion techniques)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 const fs = require('fs');
 
 var jobWebsiteUrl = 'https://www.indeed.com/' //Url of website which I want to scraping by puppeteer
+// Enter search query eg: data analyst, full stack developer, frontend developer, backend developer;
+var query = "full stack developer";
+// Enter location;
+var location = "Bangalore, Karnataka";
 
 const scrapeIndeed = async () => {
     const browser = await puppeteer.launch({ headless: false });
@@ -20,13 +25,10 @@ const scrapeIndeed = async () => {
     await page.screenshot({ path: "example.png", fullPage: true });
     await page.pdf({ path: 'demo.pdf', format: "A4" });
 
-    // Enter search query
-    await page.type('#text-input-what', 'software developer');
-    // Enter location
-    await page.type('#text-input-where', 'New Delhi, Delhi');
+    await page.type('#text-input-what', query);
+    await page.type('#text-input-where', location);
     await page.click("[type=submit]"); //click of find Job button or It will return jobs after 5000ms automatically according to query;
     await page.waitForTimeout(5000);
-
 
     const jobs = await page.evaluate(() => {
         //fetch all the jobs according to queries;

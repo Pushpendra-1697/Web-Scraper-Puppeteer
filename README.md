@@ -15,7 +15,7 @@ npm i puppeteer-extra-plugin-stealth
 npm start (or) npm run start
 
 # validation of Inputs:
-For url, queries ----> I checked by toggler Operator (!) and typeof===string 
+For url, queries ----> I checked by Logical NOT Operator (!) and typeof===string 
 
 For Handling the Success and faliure value I used try-catch block
 

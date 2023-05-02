@@ -12,8 +12,7 @@ npm i puppeteer-extra
 npm i puppeteer-extra-plugin-stealth
 
 # To run the scraper:
-```bash
-    npm install
+npm start (or) npm run start
 
     npm run start
     (or)

@@ -5,7 +5,7 @@ puppeteer.use(StealthPlugin());
 const fs = require('fs');
 
 var jobWebsiteUrl = "https://www.indeed.com/" //Url of website which I want to scraping by puppeteer
-// Enter search query eg: data analyst, full stack developer, frontend developer, backend developer;
+// Enter search query eg: data analyst, full stack developer, frontend developer, backend developer etc;
 var query = "full stack developer";
 // Enter location;
 var location = "Bangalore, Karnataka";

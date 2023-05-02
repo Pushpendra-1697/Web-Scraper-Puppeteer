@@ -12,12 +12,18 @@ npm i puppeteer-extra
 npm i puppeteer-extra-plugin-stealth
 
 # To run the scraper:
-npm start (or) npm run start
+## Installation
+
+Clone the Repository from Github. Then do the following steps:
+
+```bash
+    npm install
 
     npm run start
     (or)
     npm start
 ```
+
 # validation of Inputs:
 For url, queries ----> I checked by Logical NOT Operator (!) and typeof(inputs) should be string 
 
